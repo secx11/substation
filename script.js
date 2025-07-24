@@ -5,7 +5,7 @@ function loadWebsitesData() {
   if (dataLoaded) return Promise.resolve();
 
   // قائمة الملفات التي تريد تحميلها
-  const files = ['Data/websites.json', 'Data/websites1.json', 'Data/websites2.json'];
+  const files = ['data/websites.json', 'data/websites1.json', 'data/websites2.json'];
 
   const fetchPromises = files.map(file =>
     fetch(file)
@@ -45,7 +45,6 @@ function getWebsiteByKey(key) {
 loadWebsitesData().then(() => {
   console.log(getWebsiteByKey("79906")); // يعرض الرابط إذا كان المفتاح موجودًا
 });
- وظيفة للحصول على الرابط باستخدام المفتاح
 
 // عدّل دوال البحث والاقتراحات لتنتظر تحميل البيانات أولاً:
 function showSuggestions(searchTerm) {
