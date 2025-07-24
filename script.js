@@ -45,21 +45,7 @@ function getWebsiteByKey(key) {
 loadWebsitesData().then(() => {
   console.log(getWebsiteByKey("79906")); // يعرض الرابط إذا كان المفتاح موجودًا
 });
-
-// وظيفة للحصول على الرابط باستخدام المفتاح
-function getWebsiteByKey(key) {
-  if (!dataLoaded) {
-    console.error('Data not loaded yet. Call loadWebsitesData first.');
-    return null;
-  }
-
-  return websites[key] || 'Key not found';
-}
-
-// تحميل البيانات وتجربة الوصول لها
-loadWebsitesData().then(() => {
-  console.log(getWebsiteByKey("79906")); // يعرض الرابط "https://maps.app.goo.gl/EnxsFNpra6rJ1cJg9?g_st=ic"
-});
+ وظيفة للحصول على الرابط باستخدام المفتاح
 
 // عدّل دوال البحث والاقتراحات لتنتظر تحميل البيانات أولاً:
 function showSuggestions(searchTerm) {
