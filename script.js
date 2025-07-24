@@ -5,7 +5,7 @@ function loadWebsitesData() {
   if (dataLoaded) return Promise.resolve();
 
   // قائمة الملفات التي تريد تحميلها
-  const files = ['data/websites.json', 'data/websites1.json', 'data/websites2.json'];
+  const files = ['Data/websites.json', 'Data/websites1.json', 'Data/websites2.json'];
 
   const fetchPromises = files.map(file =>
     fetch(file)
@@ -20,14 +20,14 @@ function loadWebsitesData() {
   return Promise.all(fetchPromises)
     .then(dataArray => {
       // دمج البيانات من جميع الملفات
-      dataArray.forEach(data => {
-        Object.assign(websites, data);
+      dataArray.forEach(Data => {
+        Object.assign(websites, Data);
       });
       dataLoaded = true;
-      console.log('All websites data loaded:', websites);
+      console.log('All websites Data loaded:', websites);
     })
     .catch(error => {
-      console.error('Error loading websites data:', error);
+      console.error('Error loading websites Data:', error);
     });
 }
 
