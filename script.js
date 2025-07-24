@@ -5,7 +5,7 @@ function loadWebsitesData() {
   if (dataLoaded) return Promise.resolve();
 
   // قائمة الملفات التي تريد تحميلها
-  const files = ['data/websites.json', 'data/websites1.json', 'data/websites2.json'];
+  const files = ['Data/websites.json', 'Data/websites1.json', 'Data/websites2.json'];
 
   const fetchPromises = files.map(file =>
     fetch(file)
