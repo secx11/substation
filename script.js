@@ -4,22 +4,47 @@ let dataLoaded = false;
 function loadWebsitesData() {
   if (dataLoaded) return Promise.resolve();
 
-  return fetch('Data/websites.json') // مسار الملف
-    .then(res => {
-      if (!res.ok) {
-        throw new Error('Failed to load JSON file.');
-      }
-      return res.json();
-    })
-    .then(data => {
-      websites = data; // تخزين البيانات
+  // قائمة الملفات التي تريد تحميلها
+  const files = ['data/websites.json', 'data/websites1.json', 'data/websites2.json'];
+
+  const fetchPromises = files.map(file =>
+    fetch(file)
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`Failed to load ${file}`);
+        }
+        return res.json();
+      })
+  );
+
+  return Promise.all(fetchPromises)
+    .then(dataArray => {
+      // دمج البيانات من جميع الملفات
+      dataArray.forEach(data => {
+        Object.assign(websites, data);
+      });
       dataLoaded = true;
-      console.log('Websites data loaded:', websites);
+      console.log('All websites data loaded:', websites);
     })
     .catch(error => {
       console.error('Error loading websites data:', error);
     });
 }
+
+// وظيفة للحصول على رابط باستخدام المفتاح
+function getWebsiteByKey(key) {
+  if (!dataLoaded) {
+    console.error('Data not loaded yet. Call loadWebsitesData first.');
+    return null;
+  }
+
+  return websites[key] || 'Key not found';
+}
+
+// تحميل البيانات وتجربة الوصول لها
+loadWebsitesData().then(() => {
+  console.log(getWebsiteByKey("79906")); // يعرض الرابط إذا كان المفتاح موجودًا
+});
 
 // وظيفة للحصول على الرابط باستخدام المفتاح
 function getWebsiteByKey(key) {
