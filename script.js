@@ -3,7 +3,7 @@ let dataLoaded = false;
 
 function loadWebsitesData() {
   if (dataLoaded) return Promise.resolve();
-  return fetch(Data/websites.json)
+  return fetch('Data/websites.json')
     .then(res => res.json())
     .then(data => {
       websites = data;
