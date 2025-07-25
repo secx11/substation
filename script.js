@@ -4,34 +4,24 @@ let dataLoaded = false;
 function loadWebsitesData() {
   if (dataLoaded) return Promise.resolve();
 
-  // قائمة الملفات التي تريد تحميلها
-  const files = ['Data/websites.json', 'Data/websites1.json', 'Data/websites2.json'];
-
-  const fetchPromises = files.map(file =>
-    fetch(file)
-      .then(res => {
-        if (!res.ok) {
-          throw new Error(`Failed to load ${file}`);
-        }
-        return res.json();
-      })
-  );
-
-  return Promise.all(fetchPromises)
-    .then(dataArray => {
-      // دمج البيانات من جميع الملفات
-      dataArray.forEach(Data => {
-        Object.assign(websites, Data);
-      });
+  return fetch('Data/websites.json') // مسار الملف
+    .then(res => {
+      if (!res.ok) {
+        throw new Error('Failed to load JSON file.');
+      }
+      return res.json();
+    })
+    .then(data => {
+      websites = data; // تخزين البيانات
       dataLoaded = true;
-      console.log('All websites Data loaded:', websites);
+      console.log('Websites data loaded:', websites);
     })
     .catch(error => {
-      console.error('Error loading websites Data:', error);
+      console.error('Error loading websites data:', error);
     });
 }
 
-// وظيفة للحصول على رابط باستخدام المفتاح
+// وظيفة للحصول على الرابط باستخدام المفتاح
 function getWebsiteByKey(key) {
   if (!dataLoaded) {
     console.error('Data not loaded yet. Call loadWebsitesData first.');
@@ -43,9 +33,8 @@ function getWebsiteByKey(key) {
 
 // تحميل البيانات وتجربة الوصول لها
 loadWebsitesData().then(() => {
-  console.log(getWebsiteByKey("79906")); // يعرض الرابط إذا كان المفتاح موجودًا
+  console.log(getWebsiteByKey("79906")); // يعرض الرابط "https://maps.app.goo.gl/EnxsFNpra6rJ1cJg9?g_st=ic"
 });
-
 // عدّل دوال البحث والاقتراحات لتنتظر تحميل البيانات أولاً:
 function showSuggestions(searchTerm) {
   loadWebsitesData().then(() => {
